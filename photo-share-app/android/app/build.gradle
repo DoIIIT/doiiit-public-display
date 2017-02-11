@@ -21,7 +21,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.google.firebase.samples.apps.friendlypix"
+        applicationId "com.doiiit.publicdisplay"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 3
@@ -49,7 +49,7 @@ android {
             applicationId "pub.devrel.friendlypix"
         }
         dev2 {
-            applicationId "com.google.firebase.samples.apps.friendlypixtest"
+            applicationId "com.doiiit.publicdisplay"
         }
     }
     packagingOptions {
@@ -87,6 +87,7 @@ dependencies {
     compile 'org.apache.httpcomponents:httpcore:4.3.1'
     compile 'org.apache.httpcomponents:httpmime:4.3.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+
 }
 
 

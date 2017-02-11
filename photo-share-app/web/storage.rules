@@ -1,20 +1,11 @@
-// Returns true if the given UID matches the signed in UID,
-// the uploaded file is an image and its size is below the given number of MB.
-// Also allow deletes.
-function isImageAndBelowMaxSize(uid, maxSizeMB) {
-  return request.auth.uid == uid
-      && (request.resource == null // Allow deletes
-          || request.resource.size < maxSizeMB * 1024 * 1024 // Max size for the uploaded file
-              && request.resource.contentType.matches('image/.*')) // The file is an image
-}
 
+// Anyone can read or write to the bucket, even non-users of your app.
+// Because it is shared with Google App Engine, this will also make
+// files uploaded via GAE public.
 service firebase.storage {
   match /b/display-5e41f.appspot.com/o {
-    match /{userId}/thumb/{postId}/{fileName} {
-      allow read, write: if isImageAndBelowMaxSize(userId, 1);
-    }
-    match /{userId}/full/{postId}/{fileName} {
-      allow read, write: if isImageAndBelowMaxSize(userId, 5);
+    match /{allPaths=**} {
+      allow read, write;
     }
   }
 }

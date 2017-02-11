@@ -1,0 +1,55 @@
+<!doctype html>
+<!--
+  Copyright 2015 Google Inc. All rights reserved.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+      https://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+<header>
+</header>
+
+<body>
+<cameraapp>
+	
+</cameraapp>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ResponsiveSlides.js/1.53/responsiveslides.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script src="https://cdn.jsdelivr.net/riot/3.1/riot+compiler.min.js"></script>
+<script type="riot/tag" src="cameraapp.tag"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBy5DtZHqaGR2J1S0QD7eRVrtyKJnY2soM",
+    authDomain: "display-5e41f.firebaseapp.com",
+    databaseURL: "https://display-5e41f.firebaseio.com",
+    storageBucket: "display-5e41f.appspot.com",
+    messagingSenderId: "394171132482"
+  };
+  firebase.initializeApp(config);
+
+  
+</script>
+ <script>
+    $(function() {
+	      riot.mount('cameraapp')
+	});
+
+    </script>
+<script>
+  
+</script>
+</body>
+
+
+</html>

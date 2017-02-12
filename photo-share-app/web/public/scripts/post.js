@@ -65,6 +65,7 @@ friendlyPix.Post = class {
           page(`/feed`);
         }
       } else {
+        // console.log(post);
         this.fillPostData(snapshot.key, post.thumb_url || post.url, post.text, post.author,
             post.timestamp, post.thumb_storage_uri, post.full_storage_uri, post.full_url);
       }
@@ -121,6 +122,7 @@ friendlyPix.Post = class {
    */
   fillPostData(postId, thumbUrl, imageText, author, timestamp, thumbStorageUri, picStorageUri, picUrl) {
     const post = this.postElement;
+    
 
     // Fills element's author profile.
     $('.fp-usernamelink', post).attr('href', `/user/${author.uid}`);
@@ -246,8 +248,9 @@ friendlyPix.Post = class {
    */
   _setupDeleteButton(postId, author, picStorageUri, thumbStorageUri) {
     const post = this.postElement;
-
+    console.log( picStorageUri);
     if (this.auth.currentUser && this.auth.currentUser.uid === author.uid && picStorageUri) {
+      console.log('here');
       $('.fp-delete-post', post).show();
       $('.fp-delete-post', post).off('click');
       $('.fp-delete-post', post).click(() => {
@@ -284,7 +287,7 @@ friendlyPix.Post = class {
         });
       });
     } else {
-      $('.fp-delete-post', post).hide();
+      // $('.fp-delete-post', post).hide();
     }
   }
 

@@ -10,24 +10,22 @@
 	this.loaded = false
 
 	snap(){
+		console.log('snapping');
 		// Elements for taking the snapshot
 		var canvas = document.getElementById('canvas');
 		var context = canvas.getContext('2d');
 		var video = document.getElementById('video');
 
 		// Trigger photo take
-		document.getElementById("snap").addEventListener("click", function() {
-			context.drawImage(video, 0, 0, 640, 480);
-			var canvasData = canvas.toDataURL("image/png");
-			var filename = (new Date()).toString()
-			canvas.toBlob(function(blob){
-			  var image = new Image();
-			  image.src = blob;
-			  self.uploadNewPic(blob, filename, "")
-			}); 
-			
+		context.drawImage(video, 0, 0, 640, 480);
+		var canvasData = canvas.toDataURL("image/png");
+		var filename = (new Date()).toString()
+		canvas.toBlob(function(blob){
+		  var image = new Image();
+		  image.src = blob;
+		  self.uploadNewPic(blob, filename, "")
+		}); 
 
-		});
 	}
 	uploadNewPic(pic, fileName, text) {
 	    // Get a reference to where the post will be created.
@@ -52,7 +50,7 @@
 	          full_storage_uri: picRef.toString(),
 	          thumb_storage_uri: picRef.toString(),
 	          author: {
-	            uid: "doiiit-photobooth",
+	            uid: "LALbXstHB5aXoGAHInQFwyoPSND2",
 	            full_name: "doiiit-photobooth",
 	            profile_picture: ""
 	          }
@@ -60,7 +58,14 @@
 	        var logList =  firebase.database().ref('/posts/')
 	        var newLogRef = logList.push()
 	        newLogRef.set(update).then(function(){
-	          console.log('Saved log to firebase');
+	          console.log('Saved to firebase');
+
+	        const newPostRef = firebase.database().ref('/people/LALbXstHB5aXoGAHInQFwyoPSND2/posts/'+ newPostKey);
+	        newPostRef.set(true).then(function(){
+	      	console.log('Saved to firebase post for user');
+	      	
+	      })
+
 	        })
 
 	    }).catch(error => {

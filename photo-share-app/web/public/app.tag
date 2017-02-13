@@ -1,86 +1,57 @@
 <app>
-<ul if={loaded} class="rslides">
-  <li each={url in urls}><img src={url} alt=""></li>
-</ul>
 <div class="slideshow-container">
   <div each={images} class="mySlides fade">
     <img src={full_url} style="width:100%">
     <div class="text">{text}</div>
   </div>
-
-  <div class="mySlides fade">
-    <img src={full_url}  style="width:100%">
-    <div class="text">{text}</div>
-  </div>
-
-  <div class="mySlides fade">
-    <img src={full_url}  style="width:100%">
-    <div class="text">{text}</div>
-  </div>
-
+<!-- 
   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a> -->
 </div>
 <script>
 	a = this
 	var self = this
-	this.images = []
+	images = this.images = []
 	this.loaded = false
 
 	this.on("mount", function(){
-		// refresh = function(){
-		// 	self.loaded = false; 	self.update()
-		// 	firebase.database().ref('/posts/').once('value').then(function(snapshot) {
-		// 		self.loaded= true
-	 //  		v = snapshot.val();
-		// 	  console.log(v);
-		// 	  var vals = _.values(v);
-		// 	  self.urls = _.pluck(vals, "full_url")
-		// 	  self.urls.reverse()
-		// 	  console.log(self.urls);
-		// 	  self.update()
-		// 	  $(".rslides").responsiveSlides();
-		// 	});		
-		// }
-		// setInterval(refresh, 15000)	
 		slideIndex = 0;
 
 		var thisDeviceListRef =  firebase.database().ref('/posts/')
-			thisDeviceListRef.on("child_added", function(snapshot) {
-				self.loaded = false
+		thisDeviceListRef.on("child_added", function(snapshot) {
+			self.loaded = false
+			self.update()
+			value = snapshot.val()
+			if (value){
+				console.log(value);
+				self.images.unshift(value)
+				self.loaded = true
 				self.update()
-				value = snapshot.val()
-				if (value){
-					console.log(value);
-					self.images.unshift(value)
-					self.loaded = true
-				  // var vals = _.values(v);
-				  // self.urls = _.pluck(vals, "full_url")
-				  // self.urls.reverse()
-				  // console.log(self.urls);
-				  self.update()
-				  
-					showSlides();
-					
-				}
-				
-			});
+
+				self.showSlides();
+			}
+
+		});
 		// refresh()	
+		var autoRefreshRef =  firebase.database().ref('/RefreshSlideshow/')
+		autoRefreshRef.on("child_added", function(snapshot) {
+				location.reload();
+			}
+			
+		);
+		setInterval(self.showSlides, 15000);
 	})
 
-
-
-function showSlides() {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none"; 
-    }
-    slideIndex++;
-    if (slideIndex> slides.length) {slideIndex = 1} 
-    slides[slideIndex-1].style.display = "block"; 
-    setTimeout(showSlides, 2000); // Change image every 2 seconds
-}
+	showSlides() {
+	    var slides = document.getElementsByClassName("mySlides");
+	    for (var i = 0; i < slides.length; i++) {
+	        slides[i].style.display = "none"; 
+	    }
+	    slideIndex++;
+	    if (slideIndex>= slides.length) {slideIndex = 0} 
+	    slides[slideIndex].style.display = "block"; 
+	     // Change image every 2 seconds
+	}
 
 
 </script>

@@ -33,9 +33,12 @@
 
 		});
 		// refresh()	
-		var autoRefreshRef =  firebase.database().ref('/RefreshSlideshow/')
+		autoRefreshRef =  firebase.database().ref('/RefreshSlideshow/')
 		autoRefreshRef.on("child_added", function(snapshot) {
-				location.reload();
+				autoRefreshRef.set({}).then(function(){
+					location.reload();
+				})
+				
 			}
 			
 		);
